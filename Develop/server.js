@@ -15,7 +15,7 @@ app.use(apiRoutes);//added apiroutes above html
 
 app.use(htmlRoutes)//call apis above html
 
-const port = 3001;
+const port = 3001;process.env.PORT || 3001;
 app.listen(port,()=>{
     console.log("listening on port: ", port)
 });

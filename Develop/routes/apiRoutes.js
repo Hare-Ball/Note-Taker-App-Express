@@ -2,10 +2,9 @@ const router = require('express').Router();
 const express = require('express')
 const fs = require("fs")
 const path = require('path');
-const app = express();
 
-function writeNotes(note) {
-    fs.writeFileSync(path.join(__dirname, "../db/db.json"), note, (err) => {
+function writeNotes(notes) {
+    fs.writeFileSync(path.join(__dirname, "../db/db.json"), notes, (err) => {
       if (err) throw err;
       console.log("Your note has been saved.");
     });
@@ -19,18 +18,19 @@ function writeNotes(note) {
     });
   }
 
-  module.exports = (app) => {
-
-    app.get("/api/notes", (res, req)=> {
-        const notes = readNotes();
-        res.json(notes);
+  router.get("/api/notes", (req, res)=> {
+    console.log("We hit our notes route!");
+    const notes = readNotes();
+    console.log(notes);
+    res.json(notes);
     });
 
-    app.post("/api/notes", (res, req) => {
-        readNotes().then((notes) => {
-            notes.push(req.body);
-            writeNotes(notes);
-            res.json(req.body);
-        });
-  });
-};
+  router.post("/api/notes", (req, res) => {
+    readNotes().then((note) => {
+        note.push(req.body);
+        writeNotes(note);
+        res.json(req.body);
+    });
+   }); 
+
+  module.exports = router;
