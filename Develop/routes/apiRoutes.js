@@ -29,7 +29,7 @@ const path = require('path');
 
   router.post("/api/notes", (req, res) => {
     fs.writeFile(path.join(__dirname, "../db/db.json"), note, (err) => {
-      if (err) throw err;S
+      if (err) throw err;
       console.log("Saved!");
     });
   });
