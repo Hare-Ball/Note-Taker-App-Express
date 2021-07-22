@@ -19,12 +19,11 @@ const path = require('path');
 
   router.get("/api/notes", (req, res) => {
     console.log("We hit our notes route!");
-    fs.readFile(path.join(__dirname, "../db/db.json", "utf8", (err, note) => {
+    fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", (err, note) => {
       if (err) throw err;
       console.log(note);
       res.json(JSON.parse(note));
-    })
-   );
+    });
   });
 
   router.post("/api/notes", (req, res) => {
