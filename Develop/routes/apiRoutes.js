@@ -18,6 +18,7 @@ router.post("/api/notes", (req, res) => {
   let noteId = (jsonData.length).toString();
   newNote.id= noteId
   jsonData.push(newNote);
+  console.log(jsonData);
 
   fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(jsonData), (err) => {
     if (err) throw err;
