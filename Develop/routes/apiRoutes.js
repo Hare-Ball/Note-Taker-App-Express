@@ -1,42 +1,52 @@
 const router = require('express').Router();
-const express = require('express')
 const fs = require("fs")
 const path = require('path');
 
-// function writeNotes(notes) {
-//     fs.writeFileSync(path.join(__dirname, "../db/db.json"), notes, (err) => {
-//       if (err) throw err;
-//       console.log("Your note has been saved.");
-//     });
-//   }
+var jsonData = JSON.parse(fs.readFileSync(path.join(__dirname,'../db/db.json')))
 
-//   function readNotes() {
-//     fs.readFileSync(path.join(__dirname, "../db/db.json"), (err, note) => {
-//       if (err) throw err;
-//       console.log(notes);
-//       return note;
-//     });
+router.get('/api/notes', (req,res)=> {
+  console.log("notes route");
+  res.json(jsonData)
+});
 
-  router.get("/api/notes", (req, res) => {
-    console.log("We hit our notes route!");
-    fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", (err, note) => {
-      if (err) throw err;
-      console.log(note);
-      res.json(JSON.parse(note));
-    });
+router.get('/api/notes/:id', function(req, res){
+  res.json(jsonData[req.params.id]);
   });
 
-  router.post("/api/notes", (req, res) => {
-    fs.writeFile(path.join(__dirname, "../db/db.json"), note, (err) => {
-      if (err) throw err;
-      console.log("Saved!");
-    });
+router.post("/api/notes", (req, res) => {
+  let newNote = req.body;
+  let noteId = (jsonData.length).toString();
+  newNote.id= noteId
+  jsonData.push(newNote);
+
+  fs.writeFile(path.join(__dirname, "../db/db.json"), JSON.stringify(jsonData), (err) => {
+    if (err) throw err;
+    console.log("Saved!");
   });
 
+  res.json(jsonData)
 
-    // fs.writeFile(fileName, variable, function (err) {
-    //   if (err) throw err;
-    //   console.log("Saved!");
-    // });
+});
 
-  module.exports = router;
+// router.get("/api/notes", (req, res) => {
+//   console.log("We hit our notes route!");
+//   fs.readFile(path.join(__dirname, "../db/db.json"), "utf8", (err, note) => {
+//     if (err) throw err;
+//     console.log(note);
+//     res.json(JSON.parse(note));
+//   });
+// });
+
+// router.post("/api/notes", (req, res) => {
+//   fs.writeFile(path.join(__dirname, "../db/db.json"), note, (err) => {
+//     if (err) throw err;
+//     console.log("Saved!");
+//   });
+// });
+
+// fs.writeFile(fileName, variable, function (err) {
+//   if (err) throw err;
+//   console.log("Saved!");
+// });
+
+module.exports = router;
