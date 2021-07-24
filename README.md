@@ -17,6 +17,10 @@ Install the app using node conventions
 # Usage
 The site is simple to use and intuitive. It has been deployed in Heroku here: https://afternoon-gorge-81555.herokuapp.com/
 
+![Note Taker Main Page](/Assets/Note_Taker_Index.png "Note Taker Main Page Screengrab")
+
+![Note Taker Notes Page](/Assets/Note_Taker_Notes.png "Note Taker Notes Page Screengrab")
+
 # Contributors
 Robby Hare, my tutor, TAs, and various LAs
 
