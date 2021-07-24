@@ -9,7 +9,7 @@ router.get('/api/notes', (req,res)=> {
   res.json(jsonData)
 });
 
-router.get('/api/notes/:id', function(req, res){
+router.get('/api/notes/:id', (req, res)=>{
   res.json(jsonData[req.params.id]);
   });
 
